@@ -8,7 +8,7 @@ urlpatterns = [
     path('addpage/', addpage, name='add_page'),
     path('contact/', contact, name='contact'),
     path('login/', login, name='login'),
-    path('user/<int:user_id>/', user, name='user')
+    path('posts/<int:user_id>/', show_posts, name='user')
 ]
 
 

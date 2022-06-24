@@ -4,12 +4,12 @@
     <h1>{{ title }}</h1>
     <p>Hello guys you is my site!</p>
     <ul class="list-articles">
-        {% for u in posts %}
+        {% for p in posts %}
         <li>
-            <h2>{{ u.first_name_user }} {{ u.last_name_user }}</h2>
-            <p>{{ u.email_user }}</p>
+            <h2>{{ p.title }}</h2>
+            <p>{{ p.content }}</p>
             <div class="clear"></div>
-            <p class="link-read-post"><a href="{{ u.get_absolute_url }}">Open profile</a></p>
+            <p class="link-read-post"><a href="{{ p.get_absolute_url }}">Open post</a></p>
         </li>
         {% endfor %}
     </ul>
