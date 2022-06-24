@@ -10,7 +10,7 @@ menu = [{'title': 'About', 'url_name': 'about'},
         ]
 
 def index(request):
-    user = users.objects.all()
+    user = posts.objects.all()
     context = {
         'user': user,
         'menu': menu,
@@ -30,8 +30,8 @@ def addpage(request):
 def login(request):
     return HttpResponse('Log In')
 
-def user(request, user_id):
-    return HttpResponse(f"User in id ={user_id}")
+def user(request, posts_id):
+    return HttpResponse(f"User in id ={posts_id}")
 
 def pageNotFound(request, exceprion):
     return HttpResponseNotFound('<h1>Страница не найдена</h1>')

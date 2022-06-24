@@ -4,7 +4,7 @@
     <h1>{{ title }}</h1>
     <p>Hello guys you is my site!</p>
     <ul class="list-articles">
-        {% for u in user %}
+        {% for u in posts %}
         <li>
             <h2>{{ u.first_name_user }} {{ u.last_name_user }}</h2>
             <p>{{ u.email_user }}</p>
