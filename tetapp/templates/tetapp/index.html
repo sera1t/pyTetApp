@@ -6,6 +6,9 @@
     <ul class="list-articles">
         {% for p in posts %}
         <li>
+            {% if p.photo %}
+                <p><img class="img-article-left thumb" src="{{p.photo.url}}"></p>
+            {% endif %}
             <h2>{{ p.title }}</h2>
             <p>{{ p.content }}</p>
             <div class="clear"></div>
