@@ -1,0 +1,53 @@
+{% load static %}
+
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>{{ title }}</title>
+    <link rel="stylesheet" href="{% static 'tetapp/css/style.css'%}">
+    <link rel="stylesheet" href="{% static 'tetapp/images/main.ico' %}" type='image/x-icon'>
+</head>
+<body>
+    {% block mainmenu %}
+    <div class="header">
+        <ul id="mainmenu" class="mainmenu">
+            <li class="logo"><a href="{% url 'home' %}"><div class="logo"></div></a></li>
+            {% for m in menu %}
+                {% if not forloop.last %}
+                    <li><a href="{% url m.url_name %}">{{ m.title }}</a></li>
+                {% else %}
+                    <li class="last"><a href="{% url m.url_name %}">{{ m.title }}</a></li>
+                {% endif %}
+            {% endfor %}
+        </ul>
+    <div class="clear"></div>
+    </div>
+        <table class="table-content" border="0" cellpadding="0" cellspacing="0">
+        <tr>
+            <td valign="top" class="left-chapters">
+                <ul id="leftchapters">
+                    <li class="selected">All category</li>
+                    <li><a href="#">Tet_1</a></li>
+                    <li><a href="#">Tet_2</a></li>
+                    <li><a href="#">Tet_3</a></li>
+                    <li class="share"></li>
+                    <p>It`s my site this fun)</p>
+                </ul>
+            </td>
+            <td valign="top" class="content">
+                {% block breadcrumbs %}
+                {% endblock %}
+
+                <div class="content-text">
+                    {% block content %}
+                    {% endblock %}
+                </div>
+            </td>
+        </tr></table>
+    {% endblock %}
+</body>
+</html>

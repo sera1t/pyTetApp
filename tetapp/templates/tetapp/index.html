@@ -1,0 +1,16 @@
+{% extends 'tetapp/base.html' %}
+
+{% block content %}
+    <h1>{{ title }}</h1>
+    <p>Hello guys you is my site!</p>
+    <ul class="list-articles">
+        {% for u in user %}
+        <li>
+            <h2>{{ u.first_name_user }} {{ u.last_name_user }}</h2>
+            <p>{{ u.email_user }}</p>
+            <div class="clear"></div>
+            <p class="link-read-post"><a href="{{ u.get_absolute_url }}">Open profile</a></p>
+        </li>
+        {% endfor %}
+    </ul>
+{% endblock %}
