@@ -1,6 +1,7 @@
 from django.http import HttpResponse, HttpResponseNotFound, Http404
-from django.shortcuts import render
+from django.shortcuts import render, get_object_or_404, redirect
 
+from .forms import *
 from .models import *
 
 menu = [{'title': 'About', 'url_name': 'about'},
@@ -11,11 +12,9 @@ menu = [{'title': 'About', 'url_name': 'about'},
 
 def index(request):
     post = posts.objects.all()
-    cats = Category.objects.all()
 
     context = {
         'posts': post,
-        'cats': cats,
         'menu': menu,
         'title': 'Home page',
         'cat_selected': 0,
@@ -29,24 +28,41 @@ def contact(request):
     return HttpResponse('Contact Us')
 
 def addpage(request):
-    return HttpResponse('Add state')
+    if request.method == 'POST':
+        form = AddPostForm(request.POST)
+        if form.is_valid():
+            try:
+                posts.objects.create(**form.cleaned_data)
+                return redirect('home')
+            except:
+                form.add_error(None, 'Error add state')
+    else:
+        form = AddPostForm()
+    return render(request, 'tetapp/addpage.html', {'form': form, 'menu': menu, 'title': 'Add state'})
 
 def login(request):
     return HttpResponse('Log In')
 
 def show_posts(request, post_id):
-    return HttpResponse(f"Post in id ={post_id}")
+    post = get_object_or_404(posts, pk=post_id)
+
+    context = {
+        'post': post,
+        'menu': menu,
+        'title': post.title,
+        'cat_selected': post.cat_id,
+    }
+
+    return render(request, 'tetapp/post.html', context=context)
 
 def show_category(request, cat_id):
     post = posts.objects.filter(cat_id=cat_id)
-    cats = Category.objects.all()
 
     if len(post) == 0:
         raise Http404()
 
     context = {
         'posts': post,
-        'cats': cats,
         'menu': menu,
         'title': 'Category stage',
         'cat_selected': cat_id,
